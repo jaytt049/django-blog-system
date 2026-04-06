@@ -1,10 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 STATUS_CHOICE = (
     ('draft', 'Draft'),
     ('published', 'Published')
 )
+
+
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -23,6 +26,14 @@ class Post(models.Model):
         related_name='blog_posts'
     )
 
+    def get_absolute_url(self):
+        return reverse('post_detail', args=[
+            self.created.year,
+            self.created.month,
+            self.created.day,
+            self.slug
+        ])
+    
     class Meta:
         ordering = ['-created']
 
