@@ -1,6 +1,32 @@
-<h2>Add a new comment</h2>
-<form action="{% url "blog:post_comment" post.id %}" method="post">
- {{ form.as_p }}
- {% csrf_token %}
- <p><input type="submit" value="Add comment"></p>
+<h2 class="text-xl font-semibold text-cyan-400 tracking-wide mb-4">
+    Add a new comment
+</h2>
+
+<form action="{% url "blog:post_comment" post.id %}" method="post"
+      class="space-y-4">
+
+    <div class="left text-gray-300">
+        {{ form.name.as_field_group }}
+    </div>
+
+    <div class="left text-gray-300">
+        {{ form.email.as_field_group }}
+    </div>
+
+    <div class="text-gray-300">
+        {{ form.body.as_field_group }}
+    </div>
+
+    {% csrf_token %}
+
+    <p>
+        <input type="submit" value="Add comment"
+               class="mt-2 px-6 py-2 rounded-lg 
+                      bg-purple-500/10 text-purple-400 
+                      border border-purple-400/30 
+                      hover:bg-purple-500/20 hover:text-purple-300 
+                      transition duration-300 cursor-pointer
+                      shadow-[0_0_15px_rgba(139,92,246,0.2)]">
+    </p>
+
 </form>

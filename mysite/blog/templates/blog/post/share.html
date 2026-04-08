@@ -1,17 +1,44 @@
 {% extends "blog/base.html" %}
+
 {% block title %}Share a post{% endblock %}
+
 {% block content %}
- {% if sent %}
- <h1>E-mail successfully sent</h1>
- <p>
- "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
- </p>
- {% else %}
- <h1>Share "{{ post.title }}" by e-mail</h1>
- <form method="post">
- {{ form.as_p }}
- {% csrf_token %}
- <input type="submit" value="Send e-mail">
- </form>
- {% endif %}
+
+{% if sent %}
+
+<h1 class="text-3xl font-semibold text-green-400 tracking-wide">
+    E-mail successfully sent
+</h1>
+
+<p class="mt-4 text-gray-300">
+    "<span class="text-cyan-400">{{ post.title }}</span>" 
+    was successfully sent to 
+    <span class="text-purple-400">{{ form.cleaned_data.to }}</span>.
+</p>
+
+{% else %}
+
+<h1 class="text-3xl font-semibold text-cyan-400 tracking-wide">
+    Share "<span class="text-white">{{ post.title }}</span>" by e-mail
+</h1>
+
+<form method="post" class="mt-6 space-y-4">
+
+    <div class="space-y-4 text-gray-300">
+        {{ form.as_p }}
+    </div>
+
+    {% csrf_token %}
+
+    <input type="submit" value="Send e-mail"
+           class="mt-4 px-6 py-2 rounded-lg 
+                  bg-cyan-500/10 text-cyan-400 
+                  border border-cyan-400/30 
+                  hover:bg-cyan-500/20 hover:text-cyan-300 
+                  transition duration-300 cursor-pointer
+                  shadow-[0_0_15px_rgba(0,255,255,0.2)]">
+</form>
+
+{% endif %}
+
 {% endblock %}

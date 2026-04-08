@@ -1,31 +1,59 @@
 {% extends "blog/base.html" %}
+
 {% block title %}{{ post.title }}{% endblock %}
+
 {% block content %}
- <h1>{{ post.title }}</h1>
- <p class="date">
- Published {{ post.publish }} by {{ post.author }}
- </p>
- {{ post.body|linebreaks }}
- <p>
-    <a href="{% url "blog:post_share" post.id %}">
-        Share this post
+
+<h1 class="text-3xl font-semibold text-cyan-400 tracking-wide">
+    {{ post.title }}
+</h1>
+
+<p class="date text-sm text-gray-400 mt-2">
+    Published {{ post.publish }} by {{ post.author }}
+</p>
+
+<div class="mt-6 text-gray-300 leading-relaxed space-y-4">
+    {{ post.body|linebreaks }}
+</div>
+
+<p class="mt-6">
+    <a href="{% url "blog:post_share" post.id %}"
+       class="text-cyan-400 hover:text-cyan-300 transition underline underline-offset-4">
+        Share this post →
     </a>
- </p>
- {% with comments.count as total_comments %}
- <h2>
- {{ total_comments }} comment{{ total_comments|pluralize }}
- </h2>
- {% endwith %}
- {% for comment in comments %}
- <div class="comment">
- <p class="info">
- Comment {{ forloop.counter }} by {{ comment.name }}
- {{ comment.created }}
- </p>
- {{ comment.body|linebreaks }}
- </div>
- {% empty %}
- <p>There are no comments.</p>
- {% endfor %}
- {% include "blog/post/includes/comment_form.html" %}
+</p>
+
+{% with comments.count as total_comments %}
+<h2 class="mt-10 text-xl font-semibold text-purple-400">
+    {{ total_comments }} comment{{ total_comments|pluralize }}
+</h2>
+{% endwith %}
+
+{% for comment in comments %}
+
+<div class="comment mt-6 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md
+            shadow-[0_0_15px_rgba(139,92,246,0.05)]">
+
+    <p class="info text-sm text-gray-400 mb-2">
+        Comment {{ forloop.counter }} by {{ comment.name }} • {{ comment.created }}
+    </p>
+
+    <div class="text-gray-300 leading-relaxed">
+        {{ comment.body|linebreaks }}
+    </div>
+
+</div>
+
+{% empty %}
+
+<p class="mt-4 text-gray-400">
+    There are no comments.
+</p>
+
+{% endfor %}
+
+<div class="mt-8">
+    {% include "blog/post/includes/comment_form.html" %}
+</div>
+
 {% endblock %}

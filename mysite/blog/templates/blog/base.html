@@ -1,18 +1,90 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
- <title>{% block title %}{% endblock %}</title>
- <link href="{% static "css/blog.css" %}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* 🔥 Fix all form inputs globally */
+    input, textarea, select {
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #e5e7eb;
+        padding: 10px 12px;
+        border-radius: 8px;
+        width: 100%;
+        outline: none;
+        transition: all 0.3s ease;
+    }
+
+    /* ✨ Focus effect (IMPORTANT) */
+    input:focus, textarea:focus, select:focus {
+        border-color: #00f0ff;
+        box-shadow: 0 0 10px rgba(0, 240, 255, 0.3);
+        background-color: rgba(255, 255, 255, 0.07);
+    }
+
+    /* 🧠 Labels */
+    label {
+        display: block;
+        margin-bottom: 4px;
+        color: #9ca3af;
+        font-size: 14px;
+    }
+
+    /* 🧊 Textarea size fix */
+    textarea {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    </style>
 </head>
-<body>
- <div id="content">
- {% block content %}
- {% endblock %}
- </div>
- <div id="sidebar">
- <h2>My blog</h2>
- <p>This is my blog.</p>
- </div>
+
+<body class="bg-[#0B0F19] text-gray-200">
+
+    <!-- 🌌 Background Glow -->
+    <div class="fixed inset-0 -z-10">
+        <div class="absolute top-[-100px] left-[-100px] w-[300px] h-[300px] bg-cyan-500/20 blur-[120px]"></div>
+        <div class="absolute bottom-[-100px] right-[-100px] w-[300px] h-[300px] bg-purple-500/20 blur-[120px]"></div>
+    </div>
+
+    <div class="flex min-h-screen">
+
+        <!-- 📄 Content -->
+        <div id="content" class="flex-1 p-8">
+            <div class="max-w-4xl mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 shadow-[0_0_30px_rgba(0,255,255,0.05)]">
+                
+                {% block content %}
+                {% endblock %}
+
+            </div>
+        </div>
+
+        <!-- 🧠 Sidebar -->
+        <div id="sidebar" class="w-64 p-6 border-l border-white/10 bg-white/5 backdrop-blur-lg">
+
+            <h2 class="text-2xl font-semibold text-cyan-400 tracking-wide">
+                My blog
+            </h2>
+
+            <p class="mt-2 text-sm text-gray-400">
+                This is my blog.
+            </p>
+
+        </div>
+
+    </div>
+
 </body>
 </html>
